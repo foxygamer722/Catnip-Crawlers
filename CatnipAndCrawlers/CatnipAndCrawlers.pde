@@ -1,3 +1,4 @@
+// Estados del juego
 final int MENU = 0;
 final int JUGANDO = 1;
 final int GAME_OVER = 2;
@@ -6,7 +7,7 @@ int estadoActual = MENU;
 Juego juego;
 
 void setup() {
-  size(1000, 800);
+  size(1000, 800); // Tamaño de la ventana
   juego = new Juego();
 }
 
@@ -54,6 +55,7 @@ void mouseReleased() {
   }
 }
 
+// Interfaces temporales
 void dibujarMenu() {
   background(50, 150, 50);
   fill(255);

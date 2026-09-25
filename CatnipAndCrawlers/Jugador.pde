@@ -4,21 +4,19 @@ class Jugador {
   float velocidad;
   boolean movArriba, movAbajo, movIzq, movDer;
   
-  // NUEVO: Direcciones y Regadera
-  int direccion; // 0=Arriba, 1=Abajo, 2=Izq, 3=Der
+  int direccion;
   Regadera miRegadera;
   
   Jugador() {
-    tamano = min(width, height) * 0.05; // 5% del lado menor
-    velocidad = min(width, height) * 0.008; // Velocidad proporcional
+    tamano = min(width, height) * 0.05;
+    velocidad = min(width, height) * 0.008;
     x = width / 2.0;
     y = height / 2.0;
-    direccion = 1; // Arranca mirando hacia abajo
+    direccion = 1;
     miRegadera = new Regadera();
   }
-  
-  // NUEVO: Método para que el Juego le ordene usar la regadera
-  void usarHerramienta(Jardin jardin) {
+
+    void usarHerramienta(Jardin jardin) {
     miRegadera.usar(x, y, direccion, jardin);
   }
   
@@ -30,7 +28,6 @@ class Jugador {
   }
   
   void actualizar() {
-    // Movemos y guardamos hacia dónde estamos yendo
     if (movArriba) { y -= velocidad; direccion = 0; }
     if (movAbajo) { y += velocidad; direccion = 1; }
     if (movIzq) { x -= velocidad; direccion = 2; }
@@ -43,14 +40,12 @@ class Jugador {
   void dibujar() {
     fill(255, 150, 0); 
     noStroke();
-    ellipse(x, y, tamano, tamano); // Cuerpo del gato
-    
-    // Hociquito / Dirección proporcional
+    ellipse(x, y, tamano, tamano);
+
     fill(0);
     float offset = tamano * 0.4;
     float tamanoHocico = tamano * 0.25;
     
-    // NUEVO: Un indicador negro para saber a dónde mira
     fill(0);
     if (direccion == 0) ellipse(x, y - offset, tamanoHocico, tamanoHocico); // Arriba
     if (direccion == 1) ellipse(x, y + offset, tamanoHocico, tamanoHocico); // Abajo

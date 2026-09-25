@@ -37,7 +37,7 @@ class Planta {
       fill(0, 200, 0); 
       rect(x + tamano * 0.2, y + tamano * 0.2, tamano * 0.6, tamano * 0.6, 4);
       fill(255);
-      textSize(tamano * 0.18); // Texto relativo al tamaño de la parcela
+      textSize(tamano * 0.18);
       textAlign(CENTER, CENTER);
       text(nombre, x + tamano/2.0, y + tamano/2.0);
     }

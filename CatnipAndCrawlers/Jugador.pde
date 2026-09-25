@@ -47,9 +47,9 @@ class Jugador {
     float tamanoHocico = tamano * 0.25;
     
     fill(0);
-    if (direccion == 0) ellipse(x, y - offset, tamanoHocico, tamanoHocico); // Arriba
-    if (direccion == 1) ellipse(x, y + offset, tamanoHocico, tamanoHocico); // Abajo
-    if (direccion == 2) ellipse(x - offset, y, tamanoHocico, tamanoHocico); // Izquierda
-    if (direccion == 3) ellipse(x + offset, y, tamanoHocico, tamanoHocico); // Derecha
+    if (direccion == 0) ellipse(x, y - offset, tamanoHocico, tamanoHocico);
+    if (direccion == 1) ellipse(x, y + offset, tamanoHocico, tamanoHocico);
+    if (direccion == 2) ellipse(x - offset, y, tamanoHocico, tamanoHocico);
+    if (direccion == 3) ellipse(x + offset, y, tamanoHocico, tamanoHocico);
   }
 }

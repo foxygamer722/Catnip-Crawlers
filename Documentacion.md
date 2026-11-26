@@ -1,6 +1,6 @@
 # Catnip & Crawlers
 
-Videojuego de defensa estratégica y gestión de jardín desarrollado en **Processing (Java)** bajo el paradigma de **Programación Orientada a Objetos (POO)**. El jugador encarna a un gato jardinero encargado de cultivar plantas mágicas para generar oro, defenderlas de oleadas de insectos y sobrevivir a los cambios climáticos de las estaciones del año.
+El jugador encarna a un gato jardinero encargado de cultivar plantas mágicas para generar oro, defenderlas de oleadas de insectos y sobrevivir a los cambios climáticos de las estaciones del año.
 
 ---
 

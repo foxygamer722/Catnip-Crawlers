@@ -29,7 +29,7 @@ El jugador encarna a un gato jardinero encargado de cultivar plantas mágicas pa
 ## 2. Mecánicas de Juego
 
 ### Flujo de Partida
-1. **Fase de Preparación:** El juego comienza con $\$50$ y una semilla de *Catnip*. El jugador puede comprar en la tienda, plantar arrastrando semillas desde la barra inferior, hidratar las semillas recién plantadas para hacerlas brotar o quitar plantas excedentes (siempre conservando al menos una). Durante esta fase las plantas no sufren sed.
+1. **Fase de Preparación:** El juego comienza con $50 y una semilla de *Catnip*. El jugador puede comprar en la tienda, plantar arrastrando semillas desde la barra inferior, hidratar las semillas recién plantadas para hacerlas brotar o quitar plantas excedentes (siempre conservando al menos una). Durante esta fase las plantas no sufren sed.
 2. **Fase de Oleada:** Al presionar **INICIAR OLEADA**, los insectos aparecen desde los bordes de la pantalla.
    * Los insectos atacan a la planta más cercana. Si no quedan plantas vivas, persiguen directamente al gato.
    * Cada planta perdida (por daño de insectos o por pasar más de $15\text{ s}$ sin agua tras mostrar la alerta roja `!`) resta **1 vida**. Al perder las **3 vidas**, finaliza la partida.
@@ -39,9 +39,9 @@ El jugador encarna a un gato jardinero encargado de cultivar plantas mágicas pa
 ### Especies y Arquetipos
 
 #### Plantas
-* **Catnip (`Común`):** Costo bajo ($\15), crecimiento rápido y rendimiento estable.
-* **Menta (`Rara`):** Costo intermedio ($\25), mayor producción de oro por oleada.
-* **Girasol (`Épica`):** Costo elevado ($\40), tarda más en madurar pero otorga las mayores recompensas económicas.
+* **Catnip (`Común`):** Costo bajo ($15), crecimiento rápido y rendimiento estable.
+* **Menta (`Rara`):** Costo intermedio ($25), mayor producción de oro por oleada.
+* **Girasol (`Épica`):** Costo elevado ($40), tarda más en madurar pero otorga las mayores recompensas económicas.
 
 #### Insectos
 * **Hormiga:** Estadísticas equilibradas ($35\text{ HP}$, muere de 2 riegos).

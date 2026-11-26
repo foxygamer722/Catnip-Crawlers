@@ -86,4 +86,4 @@ Todos los recursos gráficos y de datos deben alojarse dentro de la carpeta `dat
   * `menta.png`, `menta1.png`, `menta2.png`, `menta3.png`
   * `girasol.png`, `girasol1.png`, `girasol2.png`, `girasol3.png`
 * **Escenarios:** `fondo_primavera.png`, `fondo_verano.png`, `fondo_otono.png`, `fondo_invierno.png`, `fondo_menu.png` (opcional)
-* **Base de Datos:** `puntuaciones.csv` (se genera automáticamente en la primera ejecución)
+* **Base de Datos:** `puntuaciones.csv`

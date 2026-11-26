@@ -6,8 +6,6 @@ El jugador encarna a un gato jardinero encargado de cultivar plantas mágicas pa
 
 ## 1. Arquitectura del Proyecto
 
-El sistema está modularizado en **14 clases** con responsabilidades únicas y acoplamiento reducido:
-
 | Archivo / Clase | Responsabilidad Principal |
 | :--- | :--- |
 | `CatnipAndCrawlers.pde` | Punto de entrada (`setup`, `draw`), máquina de estados global (`MENU`, `JUGANDO`, `GAME_OVER`), captura de periféricos y persistencia de récords en CSV. |

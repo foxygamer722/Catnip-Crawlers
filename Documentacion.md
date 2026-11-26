@@ -39,9 +39,9 @@ El jugador encarna a un gato jardinero encargado de cultivar plantas mágicas pa
 ### Especies y Arquetipos
 
 #### Plantas
-* **Catnip (`Común`):** Costo bajo ($\$15$), crecimiento rápido y rendimiento estable.
-* **Menta (`Rara`):** Costo intermedio ($\$25$), mayor producción de oro por oleada.
-* **Girasol (`Épica`):** Costo elevado ($\$40$), tarda más en madurar pero otorga las mayores recompensas económicas.
+* **Catnip (`Común`):** Costo bajo ($\15), crecimiento rápido y rendimiento estable.
+* **Menta (`Rara`):** Costo intermedio ($\25), mayor producción de oro por oleada.
+* **Girasol (`Épica`):** Costo elevado ($\40), tarda más en madurar pero otorga las mayores recompensas económicas.
 
 #### Insectos
 * **Hormiga:** Estadísticas equilibradas ($35\text{ HP}$, muere de 2 riegos).

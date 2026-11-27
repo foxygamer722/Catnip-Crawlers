@@ -3,8 +3,6 @@ final int JUGANDO = 1;
 final int GAME_OVER = 2;
 
 int estadoActual = MENU;
-float btnW = width * 0.24, btnH = height * 0.08;
-float btnX = width/2.0 - btnW/2.0, btnY = height * 0.83;
 ArrayList<String> topRecords;
 String nombreJugador = "";
 boolean puntajeGuardado = false;
@@ -60,6 +58,8 @@ void keyReleased() {
 
 void mousePressed() {
   if (estadoActual == MENU) {
+  float btnW = width * 0.24, btnH = height * 0.08;
+  float btnX = width/2.0 - btnW/2.0, btnY = height * 0.83;
     if (mouseX >= btnX && mouseX <= btnX + btnW && mouseY >= btnY && mouseY <= btnY + btnH) {
       iniciarNuevaPartida();
     }

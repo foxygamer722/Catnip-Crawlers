@@ -1,6 +1,6 @@
 class Jardin {
   Parcela[][] grilla;
-  int columnas = 5;
+  int columnas = 3;
   int filas = 3;
   float tamParcela, separacion, margenX, margenY;
  

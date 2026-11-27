@@ -27,7 +27,7 @@ class BaseDatos {
       );
       sentencia.close();
 
-      println("Base de datos SQLite conectada correctamente.");
+      println("Base de datos conectada correctamente.");
       return true;
 
     } catch (Exception e) {

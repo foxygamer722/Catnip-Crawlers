@@ -29,7 +29,7 @@ class GestorEstaciones {
   void cambiarEstacion() {
     int nueva = estacionActual;
     while (nueva == estacionActual) {
-      nueva = int(random(4));
+      nueva = int(random(3));
     }
     estacionActual = nueva;
     tiempoCambio = millis();

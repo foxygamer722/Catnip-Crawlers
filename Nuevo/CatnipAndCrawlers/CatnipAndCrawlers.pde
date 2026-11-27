@@ -4,14 +4,18 @@ final int GAME_OVER = 2;
 
 int estadoActual = MENU;
 Juego juego;
-Table tablaPuntuaciones;
+BaseDatos bd;
+ArrayList<String> topRecords;
 String nombreJugador = "";
 boolean puntajeGuardado = false;
 PImage fondoMenu;
 
 void setup() {
   size(1000, 700);
-  cargarBaseDatos();
+  bd = new BaseDatos();
+  bd.conectar();
+  topRecords = bd.obtenerTopPuntuaciones(6);
+
   fondoMenu = loadImage("fondo_menu.png");
   juego = new Juego();
 }
@@ -22,30 +26,6 @@ void draw() {
   else if (estadoActual == GAME_OVER) dibujarGameOver();
 }
 
-void cargarBaseDatos() {
-  File f = new File(dataPath("puntuaciones.csv"));
-  if (f.exists()) {
-    tablaPuntuaciones = loadTable("puntuaciones.csv", "header");
-  } else {
-    tablaPuntuaciones = new Table();
-    tablaPuntuaciones.addColumn("nombre", Table.STRING);
-    tablaPuntuaciones.addColumn("oleada", Table.INT);
-    tablaPuntuaciones.addColumn("dinero", Table.INT);
-    tablaPuntuaciones.addColumn("puntaje", Table.INT);
-    saveTable(tablaPuntuaciones, "data/puntuaciones.csv");
-  }
-}
-
-void guardarPuntuacion(String nombre, int oleada, int dineroTotal) {
-  TableRow fila = tablaPuntuaciones.addRow();
-  fila.setString("nombre", nombre.trim().equals("") ? "Gato Anónimo" : nombre);
-  fila.setInt("oleada", oleada);
-  fila.setInt("dinero", dineroTotal);
-  fila.setInt("puntaje", (oleada * 100) + dineroTotal);
-  tablaPuntuaciones.sortReverse("puntaje");
-  saveTable(tablaPuntuaciones, "data/puntuaciones.csv");
-}
-
 void keyPressed() {
   if (estadoActual == MENU && (key == ENTER || key == RETURN)) {
     iniciarNuevaPartida();
@@ -54,7 +34,8 @@ void keyPressed() {
       if (key == BACKSPACE && nombreJugador.length() > 0) {
         nombreJugador = nombreJugador.substring(0, nombreJugador.length() - 1);
       } else if (key == ENTER || key == RETURN) {
-        guardarPuntuacion(nombreJugador, juego.oleada, juego.dineroTotalGenerado);
+        bd.guardarPuntuacion(nombreJugador, juego.oleada, juego.dineroTotalGenerado);
+        topRecords = bd.obtenerTopPuntuaciones(6);
         puntajeGuardado = true;
       } else if (key >= 32 && key <= 126 && nombreJugador.length() < 15) {
         nombreJugador += key;
@@ -95,7 +76,6 @@ void iniciarNuevaPartida() {
 }
 
 void dibujarMenu() {
-  // 1. Fondo (imagen si existe, o degradado verde bosque con césped decorativo)
   if (fondoMenu != null) {
     image(fondoMenu, 0, 0, width, height);
   } else {
@@ -108,7 +88,6 @@ void dibujarMenu() {
     rect(0, height * 0.78, width, height * 0.22);
   }
 
-  // 2. Cartel principal del Título (estilo madera)
   float titleW = width * 0.64, titleH = height * 0.16;
   float titleX = (width - titleW) / 2.0, titleY = height * 0.05;
   fill(92, 58, 33); stroke(54, 32, 16); strokeWeight(max(2, height * 0.005));
@@ -117,13 +96,13 @@ void dibujarMenu() {
   textAlign(CENTER, CENTER);
   textSize(height * 0.058);
   fill(40, 20, 10);
-  text("CATNIP & CRAWLERS", width/2.0 + 3, titleY + titleH * 0.44 + 3); // Sombra
+  text("CATNIP & CRAWLERS", width/2.0 + 3, titleY + titleH * 0.44 + 3);
   fill(255, 225, 110);
   text("CATNIP & CRAWLERS", width/2.0, titleY + titleH * 0.44);
 
   textSize(height * 0.02);
   fill(230, 240, 210);
-  text("Defendé el jardín, cosechá oro y sobreviví a las estaciones", width/2.0, titleY + titleH * 0.8);
+  text("Defendé tu jardín, cosechá oro y sobreviví a las estaciones", width/2.0, titleY + titleH * 0.8);
 
   float panelW = width * 0.42, panelH = height * 0.52;
   float panelY = height * 0.26;
@@ -142,32 +121,27 @@ void dibujarMenu() {
   float salto = height * 0.068;
 
   dibujarFilaControl(tx, ty, "WASD / Flechas", "Mover al gato por el jardín");
-  dibujarFilaControl(tx, ty + salto, "Arrastrar", "Plantar semillas desde la barra inferior");
-  dibujarFilaControl(tx, ty + salto*2, "Click Izquierdo", "Regar semillas/plantas y atacar insectos");
-  dibujarFilaControl(tx, ty + salto*3, "Click Derecho", "Quitar una planta (mínimo queda 1)");
-  dibujarFilaControl(tx, ty + salto*4, "Signo [!] Rojo", "Regá la planta antes que se seque");
-  dibujarFilaControl(tx, ty + salto*5, "Fin de Oleada", "Las plantas crecen y dan oro");
+  dibujarFilaControl(tx, ty + salto, "Arrastrar Clic Izq.", "Plantar semillas desde la barra inferior");
+  dibujarFilaControl(tx, ty + salto*2, "Clic Izq. en mapa", "Regar semillas/plantas y atacar insectos");
+  dibujarFilaControl(tx, ty + salto*3, "Clic Der. (Prep.)", "Quitar una planta (mínimo queda 1)");
+  dibujarFilaControl(tx, ty + salto*4, "Signo [!] Rojo", "Regá rápido o la planta muere de sed");
+  dibujarFilaControl(tx, ty + salto*5, "Fin de Oleada", "Plantas vivas crecen, curan y dan oro");
 
   fill(30, 48, 36, 225); stroke(145, 195, 120); strokeWeight(2);
   rect(panelDerX, panelY, panelW, panelH, 14);
 
   fill(255, 225, 110); textSize(height * 0.026); textAlign(CENTER, TOP);
-  text("MEJORES JUGADORES (TOP 6)", panelDerX + panelW/2.0, panelY + height * 0.025);
+  text("MEJORES JARDINEROS (TOP 6)", panelDerX + panelW/2.0, panelY + height * 0.025);
 
-  int limite = min(6, tablaPuntuaciones.getRowCount());
-  if (limite == 0) {
+  if (topRecords == null || topRecords.size() == 0) {
     fill(200); textSize(height * 0.02); textAlign(CENTER, CENTER);
-    text("Todavía no hay récords.\nJugá una partida para estar en la tabla", panelDerX + panelW/2.0, panelY + panelH/2.0);
+    text("Todavía no hay récords en la base.\n¡Jugá una partida para estrenar la tabla!", panelDerX + panelW/2.0, panelY + panelH/2.0);
   } else {
-    textAlign(LEFT, CENTER); textSize(height * 0.019);
-    for (int i = 0; i < limite; i++) {
-      TableRow r = tablaPuntuaciones.getRow(i);
+    textAlign(LEFT, CENTER); textSize(height * 0.0185);
+    for (int i = 0; i < topRecords.size(); i++) {
       float ry = panelY + height * (0.105 + i * 0.065);
       fill(i == 0 ? color(255, 215, 0) : color(235));
-      text("#" + (i+1) + "  " + r.getString("nombre"), panelDerX + panelW*0.07, ry);
-      textAlign(RIGHT, CENTER);
-      text("Oleada." + r.getInt("oleada") + " | $" + r.getInt("dinero") + " | " + r.getInt("puntaje") + " pts", panelDerX + panelW*0.93, ry);
-      textAlign(LEFT, CENTER);
+      text(topRecords.get(i), panelDerX + panelW*0.07, ry);
     }
   }
 
@@ -204,7 +178,7 @@ void dibujarGameOver() {
     text("[ " + nombreJugador + "_ ]", width/2.0, height*0.58);
   } else {
     fill(150, 255, 150);
-    text("Guardado", width/2.0, height*0.52);
+    text("Récord guardado", width/2.0, height*0.52);
     fill(255);
     text("Presioná ENTER para volver al menú", width/2.0, height*0.6);
   }
